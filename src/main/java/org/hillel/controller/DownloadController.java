@@ -21,7 +21,7 @@ public class DownloadController {
         HttpSession session = req.getSession();
         String token = (String) session.getAttribute("token");
         if (token == null ) {
-            req.getRequestDispatcher("/WEB-INF/view/view.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/view/jsp/view.jsp").forward(req, resp);
         }
         if (token.equals("cat.jpg")) {
             ServletOutputStream outputStream = resp.getOutputStream();

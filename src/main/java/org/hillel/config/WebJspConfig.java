@@ -6,14 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan("org.hillel.controller")
-public class WebConfig {
+@ComponentScan("org.hillel.controller.jsp")
+public class WebJspConfig {
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resourceViewResolver = new InternalResourceViewResolver();
         resourceViewResolver.setSuffix(".jsp");
-        resourceViewResolver.setPrefix("/WEB-INF/view/");
+        resourceViewResolver.setPrefix("/WEB-INF/view/jsp/");
         return resourceViewResolver;
     }
 }

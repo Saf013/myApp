@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JourneyAllInfo</title>
+</head>
+<body>
+<h1>Все о маршруте</h1>
+<table>
+  <thead>
+  <tr>
+    <td>Порядковый номер</td>
+    <td>Id маршрута</td>
+    <td>Место отправления</td>
+    <td>Место прибытия</td>
+    <td>Отправление</td>
+    <td>Прибытие</td>
+    <td>Маршрут</td>
+    <td>Дата создания</td>
+    <td>Транспорт</td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="journey, iterator : ${show}">
+    <td th:text="${iterator.index+1}"/>
+    <td th:text="${journey.id}"/>
+    <td th:text="${journey.stationFrom}"/>
+    <td th:text="${journey.stationTo}"/>
+    <td th:text="${journey.departure}"/>
+    <td th:text="${journey.arrival}"/>
+    <td th:text="${journey.route}"/>
+    <td th:text="${journey.createDate}"/>
+    <td th:text="${journey.vehicle}"/>
+    <td><a th:href="@{/tl/journeys/sort}">Назад</a> </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

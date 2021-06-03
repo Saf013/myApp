@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicles</title>
+</head>
+<body>
+<h1>Список всех транспортных средств</h1>
+<table>
+    <thead>
+  <tr>
+    <td>Порядковый номер</td>
+    <td>Название транспортного средства</td>
+    <td>Количество мест в транспорте</td>
+    <td>Удалить</td>
+  </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vehicle, iterator: ${vehicles}">
+        <td th:text="${iterator.index+1}"/>
+        <td th:text="${vehicle.nameVehicle}"/>
+        <td th:text="${vehicle.numberOfSeats}"/>
+        <td><a th:href="@{/tl/vehicles/delete/{vehicleId}(vehicleId=${vehicle.id})}">Удалить</a> </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
