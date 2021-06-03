@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>VehiclesSort</title>
+</head>
+<body>
+<h1>Список всех транспортных средств</h1>
+
+<form class="ui form" action="#" method="post" th:action="@{/tl/vehicles/sorting}" th:object="${vehSort}">
+    Сортировать по:<input type="radio" th:name="exp" th:value="id" />Id
+    <input type="radio" th:name="exp" th:value="name">Name
+    <input type="radio" th:name="exp" th:value="numberOfSeats">NumberOfSeats
+    <input type="submit" th:value="Применить">
+    <div>
+    Параматры сортировки:<input type="radio" th:name="direction" th:value="ASC"/>ASC
+    <input type="radio" th:name="direction" th:value="DESC"/>DESC
+    </div>
+
+    <div>
+        Количество элементов на странице:<input type="radio" th:name="pageSize" th:value="5"/>5
+        <input type="radio" th:name="pageSize" th:value="10"/>10
+    </div>
+
+    <div>
+    Страницы:<input type="submit" th:name="page" th:value="0"/>
+    <input type="submit" th:name="page" th:value="1"/>
+    </div>
+
+
+</form>
+<form>
+<table>
+    <thead>
+    <tr>
+        <td>Порядковый номер</td>
+        <td>Название транспортного средства</td>
+        <td>Количество мест в транспорте</td>
+        <td>Удалить</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vehicle, iterator: ${sort}">
+        <td th:text="${iterator.index+1}"/>
+        <td th:text="${vehicle.nameVehicle}"/>
+        <td th:text="${vehicle.numberOfSeats}"/>
+        <td><a th:href="@{/tl/vehicles/delete/{vehicleId}(vehicleId=${vehicle.id})}">Удалить</a> </td>
+        <td><a th:href="@{/tl/vehicles/{vehicleId}(vehicleId=${vehicle.id})}">Показать все</a> </td>
+    </tr>
+    </tbody>
+</table>
+</form>
+</body>
+</html>

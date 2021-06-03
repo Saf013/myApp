@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>VehicleAllInfo</title>
+</head>
+<body>
+<h1>Все о транспорте</h1>
+<table>
+  <thead>
+  <tr>
+    <td>Порядковый номер</td>
+    <td>Id транспорта</td>
+    <td>Название транспортного средства</td>
+    <td>Количество мест в транспорте</td>
+    <td>Дата создания</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="vehicle, iterator: ${show}">
+    <td th:text="${iterator.index+1}"></td>
+    <td th:text="${vehicle.id}"></td>
+    <td th:text="${vehicle.nameVehicle}"></td>
+    <td th:text="${vehicle.numberOfSeats}"></td>
+    <td th:text="${vehicle.createDate}"></td>
+    <td><a th:href="@{/tl/vehicles/sort}">Назад</a> </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
