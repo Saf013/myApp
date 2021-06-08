@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Journeys</title>
+</head>
+<body>
+<h1>Все поездки</h1>
+<form class="ui form" action="#" method="post" th:action="@{/tl/journeys/sorting}" th:object="${joSort}">
+    <div>
+    Сортировать по:<input type="radio" th:name="exp" th:value="id" />Id
+    <input type="radio" th:name="exp" th:value="stationFrom">StationFrom
+    <input type="radio" th:name="exp" th:value="stationTo">StationTo
+        <input type="radio" th:name="exp" th:value="departure">Departure
+        <input type="radio" th:name="exp" th:value="arrival">Arrival
+    <input type="submit" th:value="Применить">
+    </div>
+
+    <div>
+    Параматры сортировки:<input type="radio" th:name="direction" th:value="ASC"/>ASC
+    <input type="radio" th:name="direction" th:value="DESC"/>DESC
+    </div>
+
+    <div>
+        Количество элементов на странице:<input type="radio" th:name="pageSize" th:value="5"/>5
+        <input type="radio" th:name="pageSize" th:value="10"/>10
+    </div>
+
+    <div>
+        Страницы:<input type="submit" th:name="page" th:value="0"/>
+        <input type="submit" th:name="page" th:value="1"/>
+    </div>
+</form>
+
+<table>
+  <thead>
+  <tr>
+  <td>Порядковый номер</td>
+  <td>Место отправления</td>
+  <td>Место прибытия</td>
+  <td>Отправление</td>
+  <td>Прибытие</td>
+  <td>Маршрут</td>
+  </tr>
+  </thead>
+
+  <tbody>
+    <tr th:each="journey, iterator : ${sort}">
+    <td th:text="${iterator.index+1}"/>
+    <td th:text="${journey.stationFrom}"/>
+    <td th:text="${journey.stationTo}"/>
+    <td th:text="${journey.departure}"/>
+    <td th:text="${journey.arrival}"/>
+    <td th:text="${journey.route}"/>
+    <td><a th:href="@{/tl/journeys/{journeyId}(journeyId=${journey.id})}">Показать все</a> </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

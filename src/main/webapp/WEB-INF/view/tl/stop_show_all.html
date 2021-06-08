@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StopAllInfo</title>
+</head>
+<body>
+<h1>Все об остановке</h1>
+<table>
+    <thead>
+    <tr>
+        <td>Порядковый номер</td>
+        <td>Id остоновки</td>
+        <td>Название оставновки</td>
+        <td>Название населенного пункта</td>
+        <td>Дата создания</td>
+        <td>Дополнительная инормация</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="stop, iterator: ${show}">
+        <td th:text="${iterator.index+1}"/>
+        <td th:text="${stop.id}"/>
+        <td th:text="${stop.name}"/>
+        <td th:text="${stop.city}"/>
+        <td th:text="${stop.createDate}"/>
+        <td th:text="${stop.stopAddInfo}"/>
+        <td><a th:href="@{/tl/stops/sort}">Назад</a> </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
