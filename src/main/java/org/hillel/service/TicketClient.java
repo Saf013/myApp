@@ -99,6 +99,14 @@ public class TicketClient {
         return stopService.findById(id);
     }
 
+    public void removeStopById(long id) {
+        stopService.removeById(id);
+    }
+
+    public void removeStopByIdWithDependency(long id) {
+        stopService.removeByIdWithDependency(id);
+    }
+
     public Collection<StopAddInfoEntity> findAllStopsInfo(){
         return stopAddService.findAll();
     }

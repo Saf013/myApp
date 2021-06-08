@@ -1,8 +1,7 @@
 package org.hillel.controller.tl;
 
-import org.hillel.controller.dto.JourneyDto;
+import org.hillel.controller.converter.StopMapper;
 import org.hillel.controller.dto.StopDto;
-import org.hillel.persistence.entity.JourneyEntity;
 import org.hillel.persistence.entity.StopEntity;
 import org.hillel.service.TicketClient;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,11 @@ import java.util.Optional;
 public class StopTLController {
     private List<StopEntity> list;
     private final TicketClient ticketClient;
+    private final StopMapper stopMapper;
 
-    public StopTLController(TicketClient ticketClient) {
+    public StopTLController(TicketClient ticketClient, StopMapper stopMapper) {
         this.ticketClient = ticketClient;
+        this.stopMapper = stopMapper;
     }
 
     @GetMapping("/stops/sort")
@@ -44,5 +45,17 @@ public class StopTLController {
         StopEntity entity = byIdStop.get();
         model.addAttribute("show", entity);
         return "stop_show_all";
+    }
+
+    @GetMapping("/stops/delete/{stopId}")
+    public RedirectView deleteStop(@PathVariable("stopId") long id) {
+        ticketClient.removeStopByIdWithDependency(id);
+        return new RedirectView("/tl/stops/sort");
+    }
+
+    @PostMapping("/stop/save")
+    public RedirectView save(@ModelAttribute("stopSave") StopDto stopDto) {
+        ticketClient.createOrUpdate(stopMapper.stopEntityToStopDto(stopDto));
+        return new RedirectView("/tl/stops/sort");
     }
 }

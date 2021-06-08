@@ -7,9 +7,9 @@
 <body>
 <h1>Остановки</h1>
 <form class="ui form" method="post" action="#" th:action="@{/tl/stops/sorting}" th:object="${stopSort}">
-  Сортировать по:<input type="radio" th:name="exp" th:value="id" />Id
-  <input type="radio" th:name="exp" th:value="name">Name
-  <input type="radio" th:name="exp" th:value="city">City
+  Сортировать по:<input type="radio" th:name="exp" th:value="id"/>Id
+  <input type="radio" th:name="exp" th:value="stopName">Name
+  <input type="radio" th:name="exp" th:value="cityName">City
   <input type="submit" th:value="Применить">
   <div>
     Параматры сортировки:<input type="radio" th:name="direction" th:value="ASC"/>ASC
@@ -26,6 +26,13 @@
     <input type="submit" th:name="page" th:value="1"/>
   </div>
 </form>
+<form method="post" action="#" th:action="@{/tl/stop/save}" th:object="${stopSave}">
+  <fieldset>
+    Название остановки:<input th:name="stopName"/>
+    Название населенного пункта<input th:name="cityName"/>
+    <input type="submit" th:value="Сохранить">
+  </fieldset>
+</form>
 <table>
   <thead>
   <tr>
@@ -39,6 +46,7 @@
     <td th:text=${iterator.index+1}></td>
     <td th:text=${stop.name}></td>
     <td th:text=${stop.city}></td>
+    <td><a th:href="@{/tl/stops/delete/{stopId}(stopId=${stop.id})}">Удалить</a></td>
     <td><a th:href="@{/tl/stops/{stopId}(stopId=${stop.id})}">Показать все</a> </td>
   </tr>
   </tbody>

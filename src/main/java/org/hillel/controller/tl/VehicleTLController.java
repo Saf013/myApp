@@ -39,12 +39,11 @@ public class VehicleTLController {
     @GetMapping("/vehicles/delete/{vehicleId}")
     public RedirectView deleteVehicle(@PathVariable("vehicleId") long id) {
         ticketClient.removeByIdVehicle(id);
-        return new RedirectView("/tl/vehicle/vehicles");
+        return new RedirectView("/tl/vehicles");
     }
 
     @GetMapping("/vehicles/sort")
     public String sort(Model model) {
-        //Collection<VehicleEntity> vehicleEntities = ticketClient.pageSortVehicle(0, 10, VehicleEntity_.ID, Sort.Direction.DESC);
         model.addAttribute("sort", list);
         return "vehicles_sort_view";
     }

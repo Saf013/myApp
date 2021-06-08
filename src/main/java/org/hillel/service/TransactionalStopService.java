@@ -26,12 +26,22 @@ public class TransactionalStopService {
 
     @Transactional
     public void removeById(Long id) {
+        StopEntity stopEntity = new StopEntity();
+        stopEntity.removeJourney();
         stopRepository.deleteById(id);
     }
 
     @Transactional
     public void remove(StopEntity stopEntity) {
         stopRepository.delete(stopEntity);
+    }
+
+    @Transactional
+    public void removeByIdWithDependency(long id) {
+        Optional<StopEntity> stopById = findById(id);
+        StopEntity stopEntity = stopById.get();
+        stopEntity.removeJourney();
+        remove(stopEntity);
     }
 
     @Transactional(readOnly = true)

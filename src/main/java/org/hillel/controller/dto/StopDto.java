@@ -8,8 +8,8 @@ import org.springframework.data.domain.Sort;
 @Setter
 public class StopDto {
     private long id;
-    private String name;
-    private String city;
+    private String stopName;
+    private String cityName;
     private int page;
     private int pageSize;
     private String exp;

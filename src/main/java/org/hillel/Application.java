@@ -1,15 +1,14 @@
 package org.hillel;
 
-import org.hillel.config.DownloadConfig;
-import org.hillel.config.RootConfig;
-import org.hillel.config.WebJspConfig;
+import org.hillel.config.*;
 
-import org.hillel.config.WebTLConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -19,7 +18,7 @@ public class Application implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext rootConfig = new AnnotationConfigWebApplicationContext();
-        rootConfig.register(RootConfig.class);
+        rootConfig.register(RootConfig.class, SecurityConfig.class);
         servletContext.addListener(new ContextLoaderListener(rootConfig));
 
         AnnotationConfigWebApplicationContext jspContext = new AnnotationConfigWebApplicationContext();
@@ -40,5 +39,7 @@ public class Application implements WebApplicationInitializer {
         dlContext.register(DownloadConfig.class);
         ServletRegistration.Dynamic dServlet = servletContext.addServlet("downloadServlet", new DispatcherServlet(dlContext));
         dServlet.addMapping("/download");
+
+        servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain")).addMappingForUrlPatterns(null, true, "/*");
     }
 }
